@@ -1,0 +1,4 @@
+- @tickets.each do |ticket|
+  .well
+    h2= link_to ticket.title , ticket_path(ticket)
+    p= ticket.description
