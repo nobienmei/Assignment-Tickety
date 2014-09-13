@@ -1,4 +1,11 @@
 - @tickets.each do |ticket|
   .well
-    h2= link_to ticket.title , ticket_path(ticket)
+    p= link_to ticket.title , ticket_path(ticket)
     p= ticket.description
+    p By: #{ticket.user.full_name} 
+    .pull-right
+     - if user_signed_in?
+	  - if ticket.status == true
+  	   = link_to "Mark Resolved", [ticket, ticket: { status: false }], method: :patch, data: { confirm: "Un-resolved?" }, class: "btn status btn-warning", remote: true
+	  - else
+  	   = link_to "Mark Un-Resolved", [ticket, ticket: { status: true }], method: :patch, data: { confirm: "Resolved?" }, class: "btn status btn-success", remote: true

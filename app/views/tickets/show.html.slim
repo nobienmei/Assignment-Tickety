@@ -1,8 +1,8 @@
-h1= @ticket.title
-p= @ticket.description
-p
+h3= @ticket.title
+h3= @ticket.description
 /   | Target: $ #{@campaign.target}
 / p End Date: #{formatted_date(@campaign.end_date)}
-
-= link_to "Edit", edit_ticket_path(@ticket), class: "btn btn-info"
-= link_to "Delete", @ticket, method: :delete, class: "btn btn-danger", data: {confirm: "Are you sure?"}
+hr
+- if current_user && @ticket.user == current_user
+ = link_to "Edit", edit_ticket_path(@ticket), class: "btn btn-info"
+ = link_to "Delete", @ticket, method: :delete, class: "btn btn-danger", data: {confirm: "Are you sure?"}

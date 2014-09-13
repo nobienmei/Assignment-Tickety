@@ -1,4 +1,5 @@
 class TicketsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :find_ticket, only: [:edit, :update, :destroy]
 
 	def index
@@ -11,6 +12,7 @@ class TicketsController < ApplicationController
 
   def create
     @ticket = Ticket.new ticket_params
+    @ticket.user = current_user
     if @ticket.save
       redirect_to @ticket, notice: "Ticket Saved!"
     else
@@ -45,7 +47,7 @@ class TicketsController < ApplicationController
   private
 
   def ticket_params
-    params.require(:ticket).permit(:title, :description)
+    params.require(:ticket).permit(:title, :description, :status)
   end
 
  def find_ticket
